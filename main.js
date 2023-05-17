@@ -3,6 +3,11 @@ const db = require('./connection');
 const Store = require('electron-store');
 const store = new Store();
 
+
+
+
+
+
 app.on('ready', () => {
 
     let mainWindow = new BrowserWindow({
@@ -17,7 +22,7 @@ app.on('ready', () => {
     });
     
 
-    mainWindow.loadURL(`file://${__dirname}/src/index.html`);
+    mainWindow.loadURL(`file://${__dirname}/src/views/login.html`);
 
 
 });
@@ -56,3 +61,25 @@ function validateLogin(data) {
       }
     });
   }
+
+
+  const createWindowDashboard = () => {
+  // Create the browser window.
+  window = new electronBrowserWindow({
+    icon: __dirname + '/assets/images/favicon.ico',
+    width: 900,
+    height: 600,
+    autoHideMenuBar: true,
+    webPreferences: {
+      nodeIntegration: true,
+      contextIsolation: true,
+      devTools: false,
+      preload: path.join(__dirname, 'preload.js')
+    }
+  });
+
+  // and load the index.html of the app.
+  window.loadFile(path.join(__dirname, 'views/index.html'));
+
+  window.webContents.openDevTools();
+};
