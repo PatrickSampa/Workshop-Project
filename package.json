@@ -1,0 +1,19 @@
+{
+  "name": "projetooficinaelectron",
+  "version": "1.0.0",
+  "description": "Projeto em Electron com crud para gerenciamento de clientes e funcionarios de uma oficina",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "electron ."
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^24.3.0",
+    "electron-store": "^8.1.0",
+    "mysql2": "^3.3.1",
+    "promise-mysql": "^5.2.0"
+  }
+}
