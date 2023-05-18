@@ -1,5 +1,5 @@
 const { ipcRenderer } = require('electron');
-
+const $ = require('jquery');
 
 let usuario = document.getElementById('usuario');
 let senha = document.getElementById('senha');

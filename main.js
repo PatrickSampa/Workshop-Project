@@ -8,9 +8,12 @@ const store = new Store();
 
 
 
+
+let mainWindow;
+
 app.on('ready', () => {
 
-    let mainWindow = new BrowserWindow({
+        mainWindow = new BrowserWindow({
         width:1000,
         height:800,
         fullscreenable: false, 
@@ -32,6 +35,7 @@ app.on("window-all-closed", ()=>{
 });
 
 
+
 ipcMain.on('login', (event, data) => {
     validateLogin(data);
 })
@@ -51,35 +55,31 @@ function validateLogin(data) {
         store.set('nome', results[0].nome);
         store.set('senha', results[0].senha);
         store.set('permissao', results[0].permissao);
+
+        const consultar = new BrowserWindow({
+          width: 1000,
+          height: 800,
+          resizable: false,
+          webPreferences: {
+            nodeIntegration: true,
+            contextIsolation: false,
+          },
+        });
+    
+        consultar.loadURL(`file://${__dirname}/src/views/consultar.html`);
+    
+        consultar.on('closed', () => {
+          // Evento disparado quando a nova janela é fechada
+          app.quit(); // Fechar o aplicativo quando a janela é fechada
+        });
         
-  
-        /* createWindowDashboard();
-        window.loadFile(path.join(__dirname, 'views/consultar.html'));
-        window.maximize();
-        window.show();
-        loginWindow.close(); */
+        consultar.maximize(); // Maximiza a janela "consultar"
+        // Fechar a janela principal (mainWindow)
+        mainWindow.close();
+        mainWindow = null;
+        
+       
       }
     });
   }
 
-
-  const createWindowDashboard = () => {
-  // Create the browser window.
-  window = new electronBrowserWindow({
-    icon: __dirname + '/assets/images/favicon.ico',
-    width: 900,
-    height: 600,
-    autoHideMenuBar: true,
-    webPreferences: {
-      nodeIntegration: true,
-      contextIsolation: true,
-      devTools: false,
-      preload: path.join(__dirname, 'preload.js')
-    }
-  });
-
-  // and load the index.html of the app.
-  window.loadFile(path.join(__dirname, 'views/index.html'));
-
-  window.webContents.openDevTools();
-};
