@@ -1,23 +1,32 @@
 const { ipcRenderer } = require('electron');
 
-let nome = document.getElementById('nome');
-let dataNasc = document.getElementById('dataNasc');
-let email = document.getElementById('email');
-let telefone = document.getElementById('telefone');
-let cpf = document.getElementById('cpf');
-let rg = document.getElementById('rg');
-let cidade = document.getElementById('cidade');
-let bairro = document.getElementById('bairro');
-let rua = document.getElementById('rua');
-let casa = document.getElementById('casa');
-let refen = document.getElementById('refen');
-let obs = document.getElementById('obs');
+
 let cadastrar = document.getElementById('cadastrar');
 
 cadastrar.addEventListener("submit", async (e) => {
     e.preventDefault();
-    /* let a = document.getElementById('consultar');
-    a.click(); */
+
+    
+
+  try{
+
+    let nome = document.getElementById('nome').value || "Null";
+    let dataNasc = document.getElementById('dataNasc').value || "Null";
+    let email = document.getElementById('email').value || "Null";
+    let telefone = document.getElementById('telefone').value || "Null";
+    let cpf = document.getElementById('cpf').value || "Null";
+    let rg = document.getElementById('rg').value || "Null";
+    let cidade = document.getElementById('cidade').value || "Null";
+    let bairro = document.getElementById('bairro').value || "Null";
+    let rua = document.getElementById('rua').value || "Null";
+    let casa = document.getElementById('casa').value || "Null";
+    let refen = document.getElementById('refen').value || "Null";
+    let obs = document.getElementById('obs').value || "Null";
+    data = {nome: nome, dataNascimento: dataNasc, email: email, telefone: telefone, cpf: cpf, rg: rg, cidade: cidade, bairro: bairro, rua: rua, casa: casa, referencia: refen, observacao: obs}
+
+
+    ipcRenderer.send('cadastroUser', data);
+
     nome.value  = "";
     dataNasc.value  = "";
     email.value  = "";
@@ -30,25 +39,25 @@ cadastrar.addEventListener("submit", async (e) => {
     casa.value  = "";
     refen.value  = "";
     obs.value  = "";
-    cadastrar.value = "";
+
+
     Swal.fire(
-        'Sucesso!!',
-        'Cliente Cadastrado',
-        'success'
-      )
-    console.log(nome)
-    console.log(dataNasc)
-    console.log(email)
-    console.log(telefone)
-    console.log(cpf)
-    console.log(rg)
-    console.log(cidade)
-    console.log(bairro)
-    console.log(rua)
-    console.log(casa)
-    console.log(refen)
-    console.log(obs)
+      'Sucesso!!',
+      'Cliente Cadastrado',
+      'success'
+    )
+  }catch(e){
+    console.log(e)
+    //Mensagem de erro ao cadastrar
+  }
     
+
+
+
+
+
+    
+
 })
 
 

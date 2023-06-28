@@ -1,6 +1,7 @@
 const { app, BrowserWindow, ipcMain } = require('electron');
 const db = require('./connection');
 const Store = require('electron-store');
+const { event } = require('jquery');
 const store = new Store();
 
 
@@ -41,6 +42,15 @@ app.on("window-all-closed", ()=>{
 ipcMain.on('login', (event, data) => {
     validateLogin(data);
 })
+
+
+ipcMain.on('cadastroUser', (event, data) => {
+  createUser(data);
+})
+
+
+
+
 
 function validateLogin(data) {
     const { usuario, senha } = data;
@@ -83,5 +93,16 @@ function validateLogin(data) {
        
       }
     });
+  }
+
+
+  function createUser(data){
+    const { nome, dataNascimento, email, telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao} = data;
+    const sql = 'INSERT INTO clientes (nome, data_nascimento, email, numero_telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
+    db.query(sql, [nome, dataNascimento, email, telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao], (error) => {
+      if(error){
+        console.log(error)
+      }
+    })
   }
 
