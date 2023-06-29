@@ -1,6 +1,8 @@
 const { ipcRenderer } = require('electron');
 
 
+localStorage.setItem('teste',false)
+
 let cadastrar = document.getElementById('cadastrar');
 
 cadastrar.addEventListener("submit", async (e) => {
@@ -10,35 +12,71 @@ cadastrar.addEventListener("submit", async (e) => {
 
   try{
 
-    let nome = document.getElementById('nome').value || "Null";
-    let dataNasc = document.getElementById('dataNasc').value || "Null";
-    let email = document.getElementById('email').value || "Null";
-    let telefone = document.getElementById('telefone').value || "Null";
-    let cpf = document.getElementById('cpf').value || "Null";
-    let rg = document.getElementById('rg').value || "Null";
-    let cidade = document.getElementById('cidade').value || "Null";
-    let bairro = document.getElementById('bairro').value || "Null";
-    let rua = document.getElementById('rua').value || "Null";
-    let casa = document.getElementById('casa').value || "Null";
-    let refen = document.getElementById('refen').value || "Null";
-    let obs = document.getElementById('obs').value || "Null";
+    let nomeElement = document.getElementById('nome');
+    let dataNascElement = document.getElementById('dataNasc');
+    let emailElement = document.getElementById('email');
+    let telefoneElement = document.getElementById('telefone');
+    let cpfElement = document.getElementById('cpf');
+    let rgElement = document.getElementById('rg');
+    let cidadeElement = document.getElementById('cidade');
+    let bairroElement = document.getElementById('bairro');
+    let ruaElement = document.getElementById('rua');
+    let casaElement = document.getElementById('casa');
+    let refenElement = document.getElementById('refen');
+    let obsElement = document.getElementById('obs');
+    
+    let nome = nomeElement.value || "Null";
+    let dataNasc = dataNascElement.value || new Date(1, 0, 1);
+    let email = emailElement.value || "Null";
+    let telefone = telefoneElement.value || "Null";
+    let cpf = cpfElement.value || "Null";
+    let rg = rgElement.value || "Null";
+    let cidade = cidadeElement.value || "Null";
+    let bairro = bairroElement.value || "Null";
+    let rua = ruaElement.value || "Null";
+    let casa = casaElement.value || "Null";
+    let refen = refenElement.value || "Null";
+    let obs = obsElement.value || "Null";
+    
+/*     nome.value = "";
+    console.log(nome)
+    dataNasc.value = "";
+    email.value = "";
+    telefone.value = "";
+    cpf.value = "";
+    rg.value = "";
+    cidade.value = "";
+    bairro.value = "";
+    rua.value = "";
+    casa.value = "";
+    refen.value = "";
+    obs.value = ""; */
+
+
     data = {nome: nome, dataNascimento: dataNasc, email: email, telefone: telefone, cpf: cpf, rg: rg, cidade: cidade, bairro: bairro, rua: rua, casa: casa, referencia: refen, observacao: obs}
 
-
     ipcRenderer.send('cadastroUser', data);
+/*     const resultado = await ipcRenderer.invoke('cadastroUserTeste', true);
+   console.log("Invoke: " + resultado); // true
+ */
 
-    nome.value  = "";
-    dataNasc.value  = "";
-    email.value  = "";
-    telefone.value  = "";
-    cpf.value  = "";
-    rg.value  = "";
-    cidade.value  = "";
-    bairro.value  = "";
-    rua.value  = "";
-    casa.value  = "";
-    refen.value  = "";
-    obs.value  = "";
+   ipcRenderer.on('resposta-para-aba-html', (event, resposta) => {
+    console.log(resposta); // 'OK'
+  });
+
+
+  nomeElement.value = "";
+  dataNascElement.value = "";
+  emailElement.value = "";
+  telefoneElement.value = "";
+  cpfElement.value = "";
+  rgElement.value = "";
+  cidadeElement.value = "";
+  bairroElement.value = "";
+  ruaElement.value = "";
+  casaElement.value = "";
+  refenElement.value = "";
+  obsElement.value = "";
 
 
     Swal.fire(
@@ -47,7 +85,7 @@ cadastrar.addEventListener("submit", async (e) => {
       'success'
     )
   }catch(e){
-    console.log(e)
+    console.log('Errrrro: ' + e)
     //Mensagem de erro ao cadastrar
   }
     

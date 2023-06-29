@@ -44,13 +44,23 @@ ipcMain.on('login', (event, data) => {
 })
 
 
-ipcMain.on('cadastroUser', (event, data) => {
-  createUser(data);
+ipcMain.on('cadastroUser', async (event, data) => {
+  //let UserCreat = createUser(data);
+  store.set('t',"arroz");
+
+  
+  /* console.log(p) */
 })
 
+/* ipcMain.handle('cadastroUserTeste', (event, data) => {
+  if (data) {
+    console.log('passou');
+    return true;
+  }
+  return false; // Retorne o valor desejado caso a condição não seja atendida
+});
 
-
-
+ */
 
 function validateLogin(data) {
     const { usuario, senha } = data;
@@ -96,13 +106,33 @@ function validateLogin(data) {
   }
 
 
-  function createUser(data){
-    const { nome, dataNascimento, email, telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao} = data;
-    const sql = 'INSERT INTO clientes (nome, data_nascimento, email, numero_telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)'
-    db.query(sql, [nome, dataNascimento, email, telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao], (error) => {
-      if(error){
-        console.log(error)
-      }
-    })
+  function createUser(data) {
+      
+      const { nome, dataNascimento, email, telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao } = data;
+      const sql = 'INSERT INTO clientes (nome, data_nascimento, email, numero_telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+      db.query(sql, [nome, dataNascimento, email, telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao], (error) => {
+        if (error) {
+          console.log("ERROOOOO");
+          reject(error); // Rejeitar a Promise com o erro
+        } else {
+          console.log("PASSOU PELO ERRO");
+          resolve(true); // Resolver a Promise com o valor desejado (true)
+        }
+      });
   }
 
+
+  function UserExistente(data) {
+    return new Promise((resolve, reject) => {
+      const { cpf } = data;
+      const sql = 'SELECT * FROM clientes WHERE cpf=?';
+  
+      db.query(sql, [cpf], (error, results, fields) => {
+        if (results.length >= 1) {
+          reject(new Error());
+        } else {
+          resolve(results);
+        }
+      });
+    });
+  }
