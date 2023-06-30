@@ -1,4 +1,4 @@
-const { app, BrowserWindow, ipcMain } = require('electron');
+const { app, BrowserWindow, ipcMain, ipcRenderer } = require('electron');
 const db = require('./connection');
 const Store = require('electron-store');
 const { event } = require('jquery');
@@ -46,8 +46,12 @@ ipcMain.on('login', (event, data) => {
 
 ipcMain.on('cadastroUser', async (event, data) => {
   //let UserCreat = createUser(data);
-  store.set('t',"arroz");
+  
+    const User = await createUser(data)
+  event.reply('resposta-para-aba-html', User)
+  
 
+  
   
   /* console.log(p) */
 })
@@ -106,19 +110,29 @@ function validateLogin(data) {
   }
 
 
-  function createUser(data) {
-      
+
+  async function createUser(data) {
+    try{
+      const User = await UserExistente(data);
+      console.log('Userrrr: ' + User)
+      console.log(data.nome, data.dataNascimento, data.email, data.telefone, data.cpf, data.rg, data.cidade, data.bairro, data.rua, data.casa, data.referencia, data.observacao)
       const { nome, dataNascimento, email, telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao } = data;
       const sql = 'INSERT INTO clientes (nome, data_nascimento, email, numero_telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
       db.query(sql, [nome, dataNascimento, email, telefone, cpf, rg, cidade, bairro, rua, casa, referencia, observacao], (error) => {
         if (error) {
           console.log("ERROOOOO");
-          reject(error); // Rejeitar a Promise com o erro
+           // Rejeitar a Promise com o erro
         } else {
           console.log("PASSOU PELO ERRO");
-          resolve(true); // Resolver a Promise com o valor desejado (true)
+       // Resolver a Promise com o valor desejado (true)
         }
-      });
+      });    
+      return true  
+    }catch(erro){
+      console.log("ENTROU CATTCH ERR0")
+      return false
+    }
+
   }
 
 

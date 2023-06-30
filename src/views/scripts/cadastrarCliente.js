@@ -11,7 +11,7 @@ cadastrar.addEventListener("submit", async (e) => {
     
 
   try{
-
+    const UserNãoCadHtml = document.getElementById('clienteCad');
     let nomeElement = document.getElementById('nome');
     let dataNascElement = document.getElementById('dataNasc');
     let emailElement = document.getElementById('email');
@@ -61,29 +61,35 @@ cadastrar.addEventListener("submit", async (e) => {
  */
 
    ipcRenderer.on('resposta-para-aba-html', (event, resposta) => {
-    console.log(resposta); // 'OK'
+    console.log("Dntro: " + resposta); // 'OK'
+    executarAposResposta(resposta);
   });
 
+  function executarAposResposta(resposta) {
+    if(resposta){
+      nomeElement.value = "";
+      dataNascElement.value = "";
+      emailElement.value = "";
+      telefoneElement.value = "";
+      cpfElement.value = "";
+      rgElement.value = "";
+      cidadeElement.value = "";
+      bairroElement.value = "";
+      ruaElement.value = "";
+      casaElement.value = "";
+      refenElement.value = "";
+      obsElement.value = "";
+      UserNãoCadHtml.style.display = 'none'
+      Swal.fire(
+        'Sucesso!!',
+        'Cliente Cadastrado',
+        'success'
+      );
+    }else{
+      UserNãoCadHtml.style.display = 'block'
+    }
 
-  nomeElement.value = "";
-  dataNascElement.value = "";
-  emailElement.value = "";
-  telefoneElement.value = "";
-  cpfElement.value = "";
-  rgElement.value = "";
-  cidadeElement.value = "";
-  bairroElement.value = "";
-  ruaElement.value = "";
-  casaElement.value = "";
-  refenElement.value = "";
-  obsElement.value = "";
-
-
-    Swal.fire(
-      'Sucesso!!',
-      'Cliente Cadastrado',
-      'success'
-    )
+  }
   }catch(e){
     console.log('Errrrro: ' + e)
     //Mensagem de erro ao cadastrar
