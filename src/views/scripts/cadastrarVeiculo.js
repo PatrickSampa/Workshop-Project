@@ -40,7 +40,7 @@ Cadastrar.addEventListener('submit', async (e) =>{
 
 
           function executarAposResposta(resposta){
-            if(resposta){
+            if(resposta == "VeiculoCadastrado"){
                 Modelo.value = "";
                 Marca.value = "";
                 Tipo.value = "";
@@ -53,11 +53,17 @@ Cadastrar.addEventListener('submit', async (e) =>{
                     'Veículo Cadastrado',
                     'success'
                   );
-            }else{
+            }else if(resposta == "CpfNãoExiste"){
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: 'CPF não encontrado!!',
+                  })
+            }else{
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Placa já cadastrada!!',
                   })
             }
           }  

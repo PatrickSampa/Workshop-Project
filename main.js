@@ -173,7 +173,12 @@ function validateLogin(data) {
   async function cadVeiculo(data){
     try{
       const user = await CpfCadasVeiculo(data);
-      const  {modelo, marca, tipo, placa, ano, cpf} = data
+      const veiculoJaExiste = await PlacaJaCad(data);
+      console.log(veiculoJaExiste)
+      if(veiculoJaExiste.length >= 1){
+        return "PlacaJaExiste"
+      }else{
+        const  {modelo, marca, tipo, placa, ano, cpf} = data
       const sql = 'INSERT INTO veiculos (modelo, marca, tipo, placa, ano, cpf) VALUES (?, ?, ?, ?, ?, ?)';
       db.query(sql, [modelo, marca, tipo, placa, ano, cpf] , (error) => {
         if(error){
@@ -182,9 +187,11 @@ function validateLogin(data) {
           console.log("Passou pelo erro")
         }
       })
-      return true
+      return "VeiculoCadastrado"
+      }
+      
     }catch(e){
-      return false;
+      return "CpfNãoExiste";
     }
   }
 
@@ -200,6 +207,21 @@ function validateLogin(data) {
           resolve(results);
         } else {
           reject(new Error());
+        }
+      });
+    });
+  }
+
+  function PlacaJaCad(data){
+    return new Promise((resolve, reject) => {
+      const { placa } = data;
+      const sql = 'SELECT * FROM veiculos WHERE placa=?';
+  
+      db.query(sql, [placa], (error, results, fields) => {
+        if (results.length >= 1) {
+          resolve(results);
+        } else {
+          resolve(results);
         }
       });
     });
