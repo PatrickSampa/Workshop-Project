@@ -86,7 +86,12 @@ cadastrar.addEventListener("submit", async (e) => {
         'success'
       );
     }else{
-      UserNãoCadHtml.style.display = 'block'
+      /* UserNãoCadHtml.style.display = 'block' */
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: 'Usuario Ja Cadastrado!!',
+      })
     }
 
   }

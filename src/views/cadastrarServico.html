@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 	<title>Responsive Side Navigation Bar</title>
 	<link rel="stylesheet" href="../styles/cssConsultar.css">
-    <link rel="stylesheet" href="../styles/cssCadastrarVeiculo.css">
+    <link rel="stylesheet" href="../styles/cssCadastrarCliente.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     <link rel="stylesheet" href="../styles/sweetAlert/cdn.jsdelivr.net_npm_sweetalert2@11.7.10_dist_sweetalert2.min.css">
 	<script src="https://kit.fontawesome.com/b99e675b6e.js"></script>
@@ -58,15 +58,15 @@
           <span class="icon"><i class="fas fa-file-video"></i></span>
           <span class="title">Consultar Veículos</span>
           </a></li>
-        <li><a href="cadastrarCliente.html">
+        <li><a href="cadastrarCliente.html" class="fas fa-volleyball-ball">
           <span class="icon"><i class="fas fa-volleyball-ball"></i></span>
           <span class="title">Cadastrar novo Cliente</span>
           </a></li>
-        <li><a href="#" class="active">
+        <li><a href="cadastrarVeiculo.html">
           <span class="icon"><i class="fas fa-blog"></i></span>
           <span class="title">Cadastrar novo Veículo</span>
           </a></li>
-        <li><a href="cadastrarServico.html">
+        <li><a href="#" class="active">
           <span class="icon"><i class="fas fa-leaf"></i></span>
           <span class="title">Novo Serviço</span>
           </a></li>
@@ -75,39 +75,39 @@
   
   <div class="main_container">
     <div class="container">
-        <header>Cadastro de Veículos</header>
+        <header>Cadastro de Clientes</header>
         <form id="cadastrar">
             <div class="form first">
                 <div class="details personal">
-                    <span class="title"></span>
+                    <span class="title">Perfil Pessoal</span>
                     <div class="fields">
                         <div class="input-field">
-                            <label>Modelo</label>
-                            <input type="text" id="modelo" placeholder="Modelo" required>
+                            <label>Nome Completo</label>
+                            <input type="text" id="nome" placeholder="Nome Completo" required>
                         </div>
                         <div class="input-field">
-                            <label>Marca</label>
-                            <input type="text" id="marca" placeholder="Marca">
+                            <label>Data de Nascimento</label>
+                            <input type="date" id="dataNasc" placeholder="Data Nascimento">
                         </div>
                         <div class="input-field">
-                            <label>Tipo</label>
-                            <input type="text" id="tipo" placeholder="Tipo">
+                            <label>Email</label>
+                            <input type="email" id="email" placeholder="Email">
                         </div>
                         <div class="input-field">
-                            <label>Placa</label>
-                            <input type="text" id="placa" placeholder="Placa">
-                        </div>
-                        <div class="input-field">
-                            <label>Ano</label>
-                            <input type="text" id="ano" placeholder="Ano" required>
+                            <label>Número Telefone</label>
+                            <input type="tel" id="telefone" placeholder="xxxx-xxxx">
                         </div>
                         <div class="input-field">
                             <label>CPF</label>
-                             <input type="text" id="cpf" placeholder="CPF">
+                            <input type="text" id="cpf" placeholder="CPF" required>
+                        </div>
+                        <div class="input-field">
+                            <label>RG</label>
+                             <input type="text" id="rg" placeholder="RG">
                         </div>
                     </div>
                 </div>
-<!--                 <div class="details ID">
+                <div class="details ID">
                     <span class="title">Endereço</span>
                     <div class="fields">
                         <div class="input-field">
@@ -137,11 +137,11 @@
                     </div>    
                    
                     
-                </div> --> 
+                </div> 
                 <button type="submit" id="cadastroButton">
                     Cadastrar
                 </button>
-                <p class="clienteJaCad" id="clienteCad">CPF não Encontrado!</p>
+                <p class="clienteJaCad" id="clienteCad">Usuario Ja Cadastrado</p>
             </div>
          
         </form>
@@ -149,6 +149,5 @@
   </div>
 </div>
 <script src="../styles/sweetAlert/cdn.jsdelivr.net_npm_sweetalert2@11.7.10_dist_sweetalert2.all.min.js"></script>
-<script src="./scripts/cadastrarVeiculo.js"></script>
 </body>
 </html>

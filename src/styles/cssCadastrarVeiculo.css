@@ -31,7 +31,7 @@
 .container form{
     position: relative;
     margin-top: 16px;
-    min-height: 500px;
+    min-height: 250px;
     background-color: #fff;
     overflow: hidden;
 }
@@ -160,4 +160,9 @@ form .buttons button , .backBtn{
     form .fields .input-field{
         width: 100%;
     }
+}
+
+.clienteJaCad{
+    margin-left: 378px;
+    display: none;
 }

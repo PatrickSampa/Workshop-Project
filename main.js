@@ -150,3 +150,57 @@ function validateLogin(data) {
       });
     });
   }
+
+
+
+
+
+
+  ipcMain.on('cadastroVeiculo', async (event, data) => {
+    let CadVeoculo = await cadVeiculo(data);
+    
+    
+    event.reply('cadVeiculo', CadVeoculo);
+    
+  
+    
+    
+    /* console.log(p) */
+  })
+  
+
+
+  async function cadVeiculo(data){
+    try{
+      const user = await CpfCadasVeiculo(data);
+      const  {modelo, marca, tipo, placa, ano, cpf} = data
+      const sql = 'INSERT INTO veiculos (modelo, marca, tipo, placa, ano, cpf) VALUES (?, ?, ?, ?, ?, ?)';
+      db.query(sql, [modelo, marca, tipo, placa, ano, cpf] , (error) => {
+        if(error){
+          console.log("ERRO")
+        }else{
+          console.log("Passou pelo erro")
+        }
+      })
+      return true
+    }catch(e){
+      return false;
+    }
+  }
+
+
+
+  function CpfCadasVeiculo(data){
+    return new Promise((resolve, reject) => {
+      const { cpf } = data;
+      const sql = 'SELECT * FROM clientes WHERE cpf=?';
+  
+      db.query(sql, [cpf], (error, results, fields) => {
+        if (results.length >= 1) {
+          resolve(results);
+        } else {
+          reject(new Error());
+        }
+      });
+    });
+  }
